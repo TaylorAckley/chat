@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>chAckley</title>
+    <link href='https://fonts.googleapis.com/css?family=Lora|Work+Sans' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="styles/style.css" rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="container">
+    <nav  class="navbar navbar-custom navbar-static-top" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">chAckley</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li role="menuitem"><a href="/">Home</a></li>
+      </ul>
+    </nav>
+      <div class="row">
+        <div class="col-md-12">
+          <section class="content-section-sm">
+          <div class="row">
+            <form class="form-inline" id="chatform"><input class="form-control" id="message" placeholder="..." autocomplete="off"><button class= "btn">Send</button></form>
+        </div>
+      </section>
+          <div class="row">
+            <section class="content-section-sm">
+            <div class="col-md-2" id="left-pane">
+              <p>Rooms</p>
+              <p>Users</p>
+            </div>
+            <div class="col-md-8" id="messages">
+            </div>
+          </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script src="app.js"></script>
+
+  </body>
+</html>

@@ -1,47 +1,70 @@
-<!doctype html>
-<html>
-  <head>
-    <title>chAckley</title>
-    <link href='https://fonts.googleapis.com/css?family=Lora|Work+Sans' rel='stylesheet' type='text/css'>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="styles/style.css" rel='stylesheet' type='text/css'>
-  </head>
-  <body>
-    <div class="container">
-    <nav  class="navbar navbar-custom navbar-static-top" role="navigation">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">chAckley</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li role="menuitem"><a href="/">Home</a></li>
-      </ul>
-    </nav>
-      <div class="row">
-        <div class="col-md-12">
-          <section class="content-section-sm">
-          <div class="row">
-            <form class="form-inline" id="chatform"><input class="form-control" id="message" placeholder="..." autocomplete="off"><button class= "btn">Send</button></form>
-        </div>
-      </section>
-          <div class="row">
-            <section class="content-section-sm">
-            <div class="col-md-2" id="left-pane">
-              <p>Rooms</p>
-              <p>Users</p>
-            </div>
-            <div class="col-md-8" id="messages">
-            </div>
-          </section>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<!DOCTYPE html>
+<html ng-app="issuefy">
+<head>
+	<base href="/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+  <title>Issuefy</title>
+  <link href="favicon.png" rel="shortcut icon">
+	<link href='https://fonts.googleapis.com/css?family=Lora|Work+Sans' rel='stylesheet' type='text/css'>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-css/1.4.6/select2-bootstrap.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link href="//cdn.jsdelivr.net/animatecss/3.2.0/animate.css" rel="stylesheet">
+  <link href="./styles/angular-toastr.css" rel="stylesheet">
+	<link href="./styles/auth.css" rel="stylesheet">
+	<link href="./styles/social.css" rel="stylesheet">
+	<link href="./styles/animations.css" rel="stylesheet">
+  <link href="./styles/style.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+	<nav  class="navbar navbar-custom navbar-static-top" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">chAckley</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li role="menuitem"><a href="/">Home</a></li>
+		</ul>
+	</nav>
 
-    <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<section ui-view></section>
+</div>
+<p>taylorackley@gmail.com | <a href="http://wwww.taylorackley.com">taylorackley.com</a></p>
 
-    <script src="app.js"></script>
+<!-- Third-party Libraries -->
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-animate.js"></script>
+<script src="/js/angular-messages.js"></script>
+<script src="/js/angular-resource.js"></script>
+<script src="/js/nonangular/lodash.min.js"></script>
+<script src="/js/angular-ui-router.js"></script>
+<script src="/js/angular-ui-bootsrap.js"></script>
+<script src="/js/angular-toastr.tpls.js"></script>
+<script src="/js/satellizer.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-  </body>
+<!-- Application Code -->
+<script src="/app/app.js"></script>
+<script src="/app/config.js"></script>
+<script src="/app/directives/passwordStrength.js"></script>
+<script src="/app/directives/passwordMatch.js"></script>
+<script src="/app/controllers/home.controller.js"></script>
+<script src="/app/controllers/login.controller.js"></script>
+<script src="/app/controllers/signup.controller.js"></script>
+<script src="/app/controllers/logout.controller.js"></script>
+<script src="/app/controllers/profile.controller.js"></script>
+<script src="/app/controllers/navbar.controller.js"></script>
+<script src="/app/factories/account.factory.js"></script>
+<script src="/app/services/LocalStorage.service.js"></script>
+<script src="/app/services/QueryService.service.js"></script>
+
+</body>
 </html>
