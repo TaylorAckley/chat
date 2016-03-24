@@ -4,6 +4,7 @@
     <title>chAckley</title>
     <link href='https://fonts.googleapis.com/css?family=Lora|Work+Sans' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="styles/style.css" rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="container">
@@ -17,15 +18,16 @@
     </nav>
       <div class="row">
         <div class="col-md-12">
-          <section>
+          <section class="content-section-sm">
           <div class="row">
-            <form class="form-inline" id="chatform"><input class="form-control input-lg" id="message" placeholder="..." autocomplete="off"><button>Send</button></form>
+            <form class="form-inline" id="chatform"><input class="form-control" id="message" placeholder="..." autocomplete="off"><button class= "btn">Send</button></form>
         </div>
       </section>
           <div class="row">
-            <section>
-            <div class="col-md-4">
-              <p>Placeholder</p>
+            <section class="content-section-sm">
+            <div class="col-md-2" id="left-pane">
+              <p>Rooms</p>
+              <p>Users</p>
             </div>
             <div class="col-md-8" id="messages">
             </div>
