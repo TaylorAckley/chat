@@ -16,7 +16,6 @@ var request         = require('request');
 var mongoose        = require('mongoose');
 var config          = require('./backend/config.js');
 
-
 app.use(morgan('dev'));                                         // log with Morgan
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

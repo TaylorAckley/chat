@@ -3,14 +3,14 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <!DOCTYPE html>
-<html ng-app="issuefy">
+<html ng-app="chat">
 <head>
 	<base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
-  <title>Issuefy</title>
+  <title>chAckley</title>
   <link href="favicon.png" rel="shortcut icon">
 	<link href='https://fonts.googleapis.com/css?family=Lora|Work+Sans' rel='stylesheet' type='text/css'>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -26,18 +26,30 @@
 </head>
 <body>
 	<div class="container">
-	<nav  class="navbar navbar-custom navbar-static-top" role="navigation">
+	<nav  class="navbar navbar-custom navbar-static-top" role="navigation" ng-controller="NavbarCtrl">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">chAckley</a>
 		</div>
 		<ul class="nav navbar-nav">
 			<li role="menuitem"><a href="/">Home</a></li>
 		</ul>
+		<ul ng-if="isAuthenticated()" class="nav navbar-nav pull-right">
+			<li role="menuitem"><a href="/">{{userNav.username}}</a></li>
+		</ul>
 	</nav>
 
 <section ui-view></section>
 </div>
-<p>taylorackley@gmail.com | <a href="http://wwww.taylorackley.com">taylorackley.com</a></p>
+<section>
+	<div class="container">
+		    <footer class="footer">
+		<div class="row">
+<p class="footer">taylorackley@gmail.com | <a href="http://wwww.taylorackley.com">taylorackley.com</a></p>
+</div>
+    </footer>
+</div>
+</section>
+
 
 <!-- Third-party Libraries -->
 <script src="/js/angular.min.js"></script>
@@ -50,12 +62,15 @@
 <script src="/js/angular-toastr.tpls.js"></script>
 <script src="/js/satellizer.min.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/js/socket.min.js"></script>  <!-- Angular Socket io -->
+
 
 <!-- Application Code -->
 <script src="/app/app.js"></script>
 <script src="/app/config.js"></script>
 <script src="/app/directives/passwordStrength.js"></script>
 <script src="/app/directives/passwordMatch.js"></script>
+<script src="/app/directives/ngEnter.directive.js"></script>
 <script src="/app/controllers/home.controller.js"></script>
 <script src="/app/controllers/login.controller.js"></script>
 <script src="/app/controllers/signup.controller.js"></script>
@@ -63,6 +78,8 @@
 <script src="/app/controllers/profile.controller.js"></script>
 <script src="/app/controllers/navbar.controller.js"></script>
 <script src="/app/factories/account.factory.js"></script>
+<script src="/app/factories/socket.factory.js"></script>
+<script src="/app/factories/messages.factory.js"></script>
 <script src="/app/services/LocalStorage.service.js"></script>
 <script src="/app/services/QueryService.service.js"></script>
 

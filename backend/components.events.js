@@ -5,8 +5,8 @@ var config    = require('./config.js');
 module.exports = function(io, app) {
   // globals
   var userCount = 0;
-  var defaultRoom = '#general';
-  var rooms = ['#general', '#random'];
+  var defaultRoom = 'general';
+  var rooms = ['general', 'random'];
   var defaultUser = "TaylorAckley";
 
   // events
@@ -15,6 +15,7 @@ module.exports = function(io, app) {
     userCount += 1;
     console.log(userCount + ' Users Connected');
     socket.emit('setup', {
+      users: userCount,
       rooms: rooms
     });
     socket.on('new user', function(user) {
@@ -31,13 +32,18 @@ module.exports = function(io, app) {
     });
     socket.on('new message', function(data) {
       var newMessage = new Message({
-        username: data.username,
+        user: data.user,
         content: data.message,
-        room: data.room.toLowerCase(),
+        room: data.room,
       });
       console.log('Server: Message Submitted');
       newMessage.save(function(err, msg) {
-        io.in(msg.room).emit('new message', msg);
+        if (err) {
+          console.log(err);
+        }
+        console.log(msg);
+        msg.username = data.username;
+        io.in(msg.room).emit('message created', msg);
       });
 
     });

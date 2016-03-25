@@ -5,7 +5,7 @@ var messageSchema = new Schema({
     content: {type: String, required: true, trim: true,  index: true},
     vote_up: {type: Number, default: 0},
     vote_down: {type: Number, default: 0},
-    username: String,
+    user: {type: Schema.ObjectId, required: true, ref: 'users'},
     room: String,
     //created_by: {type: Schema.ObjectId, required: true, ref: 'users'},
     //updated_by: {type: Schema.ObjectId, required: false, ref: 'users'},

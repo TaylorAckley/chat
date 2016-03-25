@@ -8,7 +8,9 @@ module.exports = function(app) {
 
 
 app.get('/api/messages', function(req, res) {
-  Message.find({}, function(err, messages) {
+  Message.find({room: req.query.room})
+  .populate('user')
+  .exec(function(err, messages) {
     if (err) {
       return res.status(409).send({message: 'There was an error retrieving messages ' + err});
     }

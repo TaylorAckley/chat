@@ -11,7 +11,7 @@
   angular
   	.module('chat')
     .constant('CONSTANTS', {
-      'API_URL': 'localhost:3000'
+      'API_URL': 'localhost:5000'
     });
 
 

@@ -1,17 +1,25 @@
-<div class="row">
+<div class="row" ng-controller="HomeCtrl">
   <div class="col-md-12">
     <section class="content-section-sm">
     <div class="row">
-      <form class="form-inline" id="chatform"><input class="form-control" id="message" placeholder="..." autocomplete="off"><button class= "btn">Send</button></form>
+      <form class="form-inline" id="chatform"><input class="form-control" id="message" placeholder="..." autocomplete="off" ng-model="message" ng-enter="send(message)"><button class= "btn" ng-click="send(message)">Send</button></form>
   </div>
 </section>
     <div class="row">
       <section class="content-section-sm">
       <div class="col-md-2" id="left-pane">
         <p>Rooms</p>
+        <ul ng-repeat="r in rooms" class="list-unstyled">
+          <li>{{r}}</li>
+        </ul>
         <p>Users</p>
+        <ul>
+        </ul>
       </div>
       <div class="col-md-8" id="messages">
+        <div ng-repeat="m in messages" class="message">
+          <p>{{m.user.username || m.username}}: {{m.content}}<p>
+        </div>
       </div>
     </section>
     </div>

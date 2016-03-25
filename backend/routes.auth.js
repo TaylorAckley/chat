@@ -4,7 +4,6 @@ var moment    = require('moment');
 var jwt       = require('jsonwebtoken');
 var randtoken = require('rand-token');
 var Mailgun   = require('mailgun-js');
-
 var config = require('./config.js');
 
 
@@ -19,7 +18,7 @@ module.exports = function(app) {
 
   var payload = null;
   try {
-    payload = jwt.decode(token, TOKEN_SECRET);
+    payload = jwt.decode(token, config.TOKEN_SECRET);
   }
   catch (err) {
     return res.status(401).send({ message: err.message });
@@ -35,12 +34,14 @@ module.exports = function(app) {
 // generate Token
 
 function createJWT(user) {
+  console.log('Assigning token');
+  console.log(user);
   var payload = {
     sub: user._id,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };
-  return jwt.sign(payload, TOKEN_SECRET);
+  return jwt.sign(payload, config.TOKEN_SECRET);
 }
 
 // get user
@@ -63,7 +64,7 @@ app.put('/api/me', ensureAuthenticated, function(req, res) {
     if (!user) {
       return res.status(400).send({ message: 'User not found' });
     }
-    //user.displayName = req.body.displayName || user.displayName;
+    user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
     user.save(function(err) {
       res.status(200).end();
@@ -88,15 +89,19 @@ app.post('/auth/login', function(req, res) {
 });
 
 app.post('/auth/signup', function(req, res) {
-  User.findOne({ email: req.body.email }, function(err, existingUser) {
+  console.log('API Debug');
+  console.log(req.body);
+  console.log('API Debug');
+  User.findOne({email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken' });
     }
     var user = new User({
-      name: req.body.displayName,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password
     });
+    console.log('saving user');
     user.save(function(err, result) {
       if (err) {
         res.status(500).send({ message: err.message });
@@ -122,8 +127,8 @@ User.update({email: req.body.email},{passwordReset: token}, {multi: false}, func
 var data = {
   from: 'Issuefy@issuefy.com',
   to: req.body.email,
-  subject: 'Password Reset for Issuefy',
-  html: 'A password reset was requested for your Issuefy account. <a href="' + APP_URL + '"/resetPassword?token=' + token + '">Click here to reset your password.</a>'
+  subject: 'Password Reset for Chat',
+  html: 'A password reset was requested for your Chat account. <a href="' + APP_URL + '"/resetPassword?token=' + token + '">Click here to reset your password.</a>'
 };
 helpers.sendMail(data, function(err, result) {
   console.log('Time to send an email!');

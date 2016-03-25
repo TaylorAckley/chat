@@ -1,20 +1,24 @@
 ;(function() {
 
   angular
-    .module('issuefy')
-    .factory('Fields', Fields);
+    .module('chat')
+    .factory('Messages', Messages);
 
-  Fields.$inject = ['$http', 'LocalStorage'];
+  Messages.$inject = ['$http', 'LocalStorage'];
 
 
   ////////////
 
 
-  function Fields($http, LocalStorage) {
+  function Messages($http, LocalStorage) {
 
     return {
-          getFields: function() {
-            return $http.get('/api/fields');
+          getMessages: function(r) {
+            return $http.get('/api/Messages', {
+              params: {
+                room: r
+              }
+            });
           }
         };
 

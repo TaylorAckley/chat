@@ -10,6 +10,7 @@
     function SignupCtrl($scope, $http, $location, LocalStorage, QueryService, $auth, toastr) {
 
       $scope.signup = function() {
+        console.log('DEBUG: ' + $scope.user);
         $auth.signup($scope.user)
           .then(function(response) {
             $auth.setToken(response);

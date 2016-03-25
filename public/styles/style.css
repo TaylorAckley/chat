@@ -255,7 +255,9 @@ ul.banner-social-buttons {
     margin-bottom: 0; } }
 
 footer {
-  padding: 50px 0; }
+  padding: 50px 0;
+  position: absolute;
+  bottom: 0; }
 
 footer p {
   margin: 0; }
@@ -276,3 +278,8 @@ body {
   border-right-width: thin;
   border-right-style: dotted;
   border-right-color: black; }
+
+.message.ng-enter {
+  -webkit-animation: zoomIn 1s;
+  -ms-animation: zoomIn 1s;
+  animation: zoomIn 1s; }

@@ -24,7 +24,8 @@
       'ui.router',
       'satellizer',
       'ui.bootstrap',
-      'textAngular',
+      //'textAngular',
+      'btford.socket-io'
     ])
     .config(config);
 
