@@ -1,11 +1,4 @@
-$primary: #3498db;
-$primaryText: #3F4146;
-$secondaryText: #7f8c8d;
-$button: #3F4146;
-$emerald: #2ecc71;
-$blue: #2980b9;
-$midnightBlue: #2c3e50;
-
+@import 'colors';
 
 body {
     width: 100%;
@@ -337,7 +330,6 @@ ul.banner-social-buttons {
 
 footer {
     padding: 50px 0;
-    position: absolute;
     bottom: 0;
 }
 
@@ -358,18 +350,19 @@ body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
 
-#message {
-  width: 80%;
+#messages {
 }
 
 #left-pane {
-  border-right-width: thin;
-  border-right-style: dotted;
-  border-right-color: black;
+}
+
+.message-box {
+  height: 50%;
+  overflow: hidden;
 }
 
 .message.ng-enter {
-    -webkit-animation: zoomIn 1s;
-    -ms-animation: zoomIn 1s;
-    animation: zoomIn 1s;
+    -webkit-animation: fadeInUp .5s;
+    -ms-animation: fadeInUp .5s;
+    animation: fadeInUp .5s;
 }

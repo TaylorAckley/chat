@@ -256,7 +256,6 @@ ul.banner-social-buttons {
 
 footer {
   padding: 50px 0;
-  position: absolute;
   bottom: 0; }
 
 footer p {
@@ -271,15 +270,11 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.2); }
 
-#message {
-  width: 80%; }
-
-#left-pane {
-  border-right-width: thin;
-  border-right-style: dotted;
-  border-right-color: black; }
+.message-box {
+  height: 50%;
+  overflow: hidden; }
 
 .message.ng-enter {
-  -webkit-animation: zoomIn 1s;
-  -ms-animation: zoomIn 1s;
-  animation: zoomIn 1s; }
+  -webkit-animation: fadeInUp .5s;
+  -ms-animation: fadeInUp .5s;
+  animation: fadeInUp .5s; }

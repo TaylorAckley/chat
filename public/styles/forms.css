@@ -1,0 +1,15 @@
+.message-form {
+  width: 100%;
+  position: absolute;
+  bottom: 0; }
+
+#message {
+  font-family: 'Lora';
+  font-size: 18px;
+  margin: 0;
+  box-shadow: none;
+  display: inline-block;
+  width: 90%; }
+
+#message:focus {
+  outline: none; }

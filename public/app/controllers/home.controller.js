@@ -37,6 +37,7 @@
 
       socket.on('message created', function(data) {
         console.log('message event received from server');
+        console.log(data);
         $scope.messages.push(data);
         $scope.message = "";
       });
