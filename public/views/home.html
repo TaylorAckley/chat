@@ -14,6 +14,7 @@
       </div>
       <div class="col-md-9 message-box" id="messages" scroll-bottom="messages">
         <div ng-repeat="m in messages" class="message">
+          <!-- TODO: Refactor to use directive-->
           <p>{{m.user.username || m[1]}}: {{m.content || m[0].content}}<p>
         </div>
       </div>
