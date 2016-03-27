@@ -2,18 +2,19 @@
   <div class="col-md-12">
     <div class="row">
       <section class="content-section-sm">
-      <div class="col-md-2" id="left-pane">
-        <p>Rooms</p>
+      <div class="col-md-2 left-pane" id="left-pane">
+        <p>{{users}}</p>
+        <h4>Rooms</h4>
         <ul ng-repeat="r in rooms" class="list-unstyled">
-          <li>{{r}}</li>
+          <li>{{r.name}} .. {{r.count}}</li>
         </ul>
-        <p>Users</p>
+        <h4>Users</h4>
         <ul>
         </ul>
       </div>
-      <div class="col-md-10 message-box" id="messages" scroll-bottom="messages">
+      <div class="col-md-9 message-box" id="messages" scroll-bottom="messages">
         <div ng-repeat="m in messages" class="message">
-          <p>{{m.user.username || m.username}}: {{m.content}}<p>
+          <p>{{m.user.username || m[1]}}: {{m.content || m[0].content}}<p>
         </div>
       </div>
     </section>
@@ -24,8 +25,8 @@
 <div class="row">
   <section class="content-section-sm">
   <div class="row">
-    <div class="col-md-10 col-md-offset-2">
-    <form class="form-inline message-form" id="chatform">
+    <div class="col-md-9 col-md-offset-2">
+    <form class="form-inline " id="chatform">
       <input class="form-control" id="message" placeholder="..." autocomplete="off" ng-model="message" ng-enter="send(message)">
       <button class= "btn btn-default" ng-click="send(message)">Send</button>
     </form>

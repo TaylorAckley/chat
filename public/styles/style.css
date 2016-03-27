@@ -270,8 +270,13 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.2); }
 
+.left-pane {
+  border-right-color: #fff;
+  border-right-style: dashed;
+  height: auto; }
+
 .message-box {
-  height: 50%;
+  height: 700px;
   overflow: hidden; }
 
 .message.ng-enter {

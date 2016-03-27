@@ -9,7 +9,7 @@
 
     function HomeCtrl($scope, $http, $location, $stateParams, LocalStorage, QueryService, socket, Account, Messages) {
 
-      $scope.room     = "general";
+      $scope.room = "general";
 
       $scope.getUser = Account.getUser()
           .then(function(response) {
@@ -25,9 +25,13 @@
 
       socket.on('setup', function(data) {
         $scope.rooms = data.rooms;
+        $scope.users = data.users;
+      });
+
+      socket.on('user joined', function(user) {
+        $scope.room = user.room;
         Messages.getMessages($scope.room)
         .then(function(response) {
-          console.log(response.data);
           $scope.messages = response.data;
         })
         .catch(function(response) {
@@ -39,6 +43,7 @@
         console.log('message event received from server');
         console.log(data);
         $scope.messages.push(data);
+        console.log($scope.messages);
         $scope.message = "";
       });
 
