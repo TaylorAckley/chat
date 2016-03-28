@@ -3,13 +3,14 @@
     <div class="row">
       <section class="content-section-sm">
       <div class="col-md-2 left-pane" id="left-pane">
-        <p>{{users}}</p>
+        <p class="user-count">Users: {{users}}</p>
         <h4>Rooms</h4>
         <ul ng-repeat="r in rooms" class="list-unstyled">
-          <li>{{r.name}} .. {{r.count}}</li>
+          <li>#{{r.name}} {{r.count}}</li>
         </ul>
         <h4>Users</h4>
-        <ul>
+        <ul ng-repeat="u in usersConnected" class="list-unstyled">
+        <li>@{{u}}</li>
         </ul>
       </div>
       <div class="col-md-9 message-box" id="messages" scroll-bottom="messages">

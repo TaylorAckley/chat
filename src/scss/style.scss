@@ -359,8 +359,8 @@ body {
 .message-box {
   height: 700px;
   padding-top: 0;
-  margin: 0
-  overflow: scroll;
+  margin: 0;
+  overflow: auto;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px){
@@ -369,6 +369,7 @@ height: 300px;
 
 @media only screen and (min-width: 480px) and (max-width: 767px){
   height: 400px;
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px){
@@ -382,4 +383,16 @@ height: 300px;
     -webkit-animation: fadeInUp .5s;
     -ms-animation: fadeInUp .5s;
     animation: fadeInUp .5s;
+}
+
+.user-count {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: 'Work Sans'
+}
+
+#left-pane h4 {
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }

@@ -9,7 +9,35 @@
 
     function HomeCtrl($scope, $http, $location, $stateParams, LocalStorage, QueryService, socket, Account, Messages) {
 
+      incrementRoom = function(r, u) {
+        return _($scope.rooms)
+        .filter(function(prop) {
+          return prop.name === r;
+        })
+        .map(function(prop) {
+          prop.count +=1;
+          prop.users.push(u);
+          return prop;
+        })
+        .value();
+      };
+
+      decrementRoom = function(r) {
+        return _($scope.rooms)
+        .filter(function(prop) {
+          return prop.name === r;
+        })
+        .map(function(prop) {
+          prop.count +=1;
+          prop.users.push(u);
+          return prop;
+        })
+        .value();
+      };
+
       $scope.room = "general";
+      $scope.rooms = [];
+      $scope.usersConnected = [];
 
       $scope.getUser = Account.getUser()
           .then(function(response) {
@@ -17,6 +45,8 @@
             socket.emit('new user', {
               username: response.data.username
               });
+              $scope.usersConnected.push(response.data.username);
+              console.log($scope.usersConnected);
           })
           .catch(function(response) {
             toastr.error(response.data.message, response.status);
@@ -24,12 +54,25 @@
 
 
       socket.on('setup', function(data) {
-        $scope.rooms = data.rooms;
+        _.forEach(data.rooms, function(val) {
+          obj = {
+            name: val,
+            count: 0,
+            users: []
+          };
+          $scope.rooms.push(obj);
+        });
         $scope.users = data.users;
+      });
+
+      socket.on('disconnect', function(data) {
+        decrementRoom($scope.room);
       });
 
       socket.on('user joined', function(user) {
         $scope.room = user.room;
+        incrementRoom(user.room, user.username);
+
         Messages.getMessages($scope.room)
         .then(function(response) {
           $scope.messages = response.data;

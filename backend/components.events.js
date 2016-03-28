@@ -4,20 +4,35 @@ var config    = require('./config.js');
 var _         = require('lodash');
 
 module.exports = function(io, app) {
+
+  incrementRoom = function(r) {
+    return _(rooms)
+    .filter(function(prop) {
+      return prop.name === r;
+    })
+    .map(function(prop) {
+      return prop.count +=1;
+    })
+    .value();
+  };
+
+  decrementRoom = function(r) {
+    return _(rooms)
+    .filter(function(prop) {
+      return prop.name === r;
+    })
+    .map(function(prop) {
+      return prop.count -=1;
+    })
+    .value();
+  };
   // globals
   var userCount = 0;
   var defaultRoom = 'general';
-  var roomDefaults = ['general', 'random'];
+  var rooms = ['general', 'random'];
   var defaultUser = "TaylorAckley";
-  var rooms = [];
 
-  _.forEach(roomDefaults, function(val) {
-    obj = {
-      name: val,
-      count: 0
-    };
-    rooms.push(obj);
-  });
+
 
   // events
 
@@ -32,7 +47,6 @@ module.exports = function(io, app) {
       user.room = defaultRoom;
       user.count = userCount;
       socket.join(defaultRoom);
-
       io.in(defaultRoom).emit('user joined', user);
     });
 
@@ -62,6 +76,7 @@ module.exports = function(io, app) {
 
     socket.on('disconnect', function(socket) {
       userCount -= 1;
+      io.emit('disconnect');
     });
 
   });
