@@ -60,6 +60,11 @@
           skipIfLoggedIn: skipIfLoggedIn
         }
       })
+      .state('verify-email', {
+        url: '/verify-email',
+        templateUrl: 'views/verifyemail.html',
+        controller: 'VerifyEmailCtrl',
+      })
       .state('logout', {
         url: '/logout',
         template: null,

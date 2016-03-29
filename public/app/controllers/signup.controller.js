@@ -10,17 +10,18 @@
     function SignupCtrl($scope, $http, $location, LocalStorage, QueryService, $auth, toastr) {
 
       $scope.signup = function() {
-        console.log('DEBUG: ' + $scope.user);
         $auth.signup($scope.user)
           .then(function(response) {
-            $auth.setToken(response);
-            $location.path('/');
-            toastr.info('You have successfully created a new account and have been signed-in');
+            //$auth.setToken(response);
+            $location.path('/verifyEmail');
+            toastr.info('You have successfully created a new account.   Please check your email.');
           })
           .catch(function(response) {
             toastr.error(response.data.message);
           });
       };
+
+
 
       ////////////  function definitions
 

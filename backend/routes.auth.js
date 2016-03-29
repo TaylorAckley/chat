@@ -4,7 +4,8 @@ var moment    = require('moment');
 var jwt       = require('jsonwebtoken');
 var randtoken = require('rand-token');
 var Mailgun   = require('mailgun-js');
-var config = require('./config.js');
+var config    = require('./config.js');
+var helpers   = require('./helpers.js');
 
 
 module.exports = function(app) {
@@ -35,7 +36,6 @@ module.exports = function(app) {
 
 function createJWT(user) {
   console.log('Assigning token');
-  console.log(user);
   var payload = {
     sub: user._id,
     iat: moment().unix(),
@@ -89,9 +89,6 @@ app.post('/auth/login', function(req, res) {
 });
 
 app.post('/auth/signup', function(req, res) {
-  console.log('API Debug');
-  console.log(req.body);
-  console.log('API Debug');
   User.findOne({email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken' });
@@ -101,15 +98,41 @@ app.post('/auth/signup', function(req, res) {
       email: req.body.email,
       password: req.body.password
     });
-    console.log('saving user');
+
     user.save(function(err, result) {
       if (err) {
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
       }
-      res.send({ token: createJWT(result) });
+      var token = randtoken.generate(8);
+      var data = {
+        from: 'Taylor@chat.com',
+        to: req.body.email,
+        subject: 'Confirm Your Email Address',
+        html: 'Thank you for creating a chat account!   Please confirm your account by clicking on the link: <a href="' + config.APP_URL + '/#/verify-email/?token=' + token + '">Click here to confirm your email.</a><p>Confirmation Code: ' + token + '</p>'
+      };
+      helpers.sendMail(data, function(err, result) {
+        console.log('Sending confirmation email');
+        if (err) {
+          console.log(err);
+          return res.status(409).send({message: 'Error sending email'});
+        }
+        return res.status(200).send({message: 'successfully sent PW reset email'});
+      });
+      // TODO -- Remove....  res.send({ token: createJWT(result) });
     });
+
   });
 });
+
+app.post('/auth/verifyEmail', function(req, res) {
+  console.log(req.query.token);
+  User.findAndModify({token: req.query.token}, {verified: true}, function(err, user) {
+    if (!user) {
+      return res.status(409).send({message: 'Token not found'});
+    }
+    res.send({message: 'Success', user: user});
+  });
+  });
 
 app.post('/auth/forgotPassword', function(req, res) {
 User.findOne({email: req.body.email}, function(err, existingUser) {
@@ -128,7 +151,7 @@ var data = {
   from: 'Issuefy@issuefy.com',
   to: req.body.email,
   subject: 'Password Reset for Chat',
-  html: 'A password reset was requested for your Chat account. <a href="' + APP_URL + '"/resetPassword?token=' + token + '">Click here to reset your password.</a>'
+  html: 'A password reset was requested for your Chat account. <a href="' + config.APP_URL + '"/resetPassword?token=' + token + '">Click here to reset your password.</a>'
 };
 helpers.sendMail(data, function(err, result) {
   console.log('Time to send an email!');

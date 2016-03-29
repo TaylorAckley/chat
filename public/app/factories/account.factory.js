@@ -18,6 +18,9 @@
           },
           updateProfile: function(profileData) {
             return $http.put('/api/me', profileData);
+          },
+          verifyEmail: function(token) {
+            return $http.post('/auth/verifyEmail', token);
           }
         };
 
