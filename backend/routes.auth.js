@@ -135,7 +135,6 @@ app.put('/auth/verifyemail', function(req, res) {
     return res.status(200).send({message: 'User is already verfied', token: createJWT(user)});
   }
   user.verified = true;
-  user.token = token;
   user.save(function(err) {
     return res.status(200).send({message: 'Success', token: createJWT(user)});
   });
