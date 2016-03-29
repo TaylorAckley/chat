@@ -99,10 +99,7 @@ app.post('/auth/signup', function(req, res) {
       email: req.body.email,
       password: req.body.password,
       verified: false,
-      token: {
-        token: token,
-        used: false
-      }
+      token: token
     });
 
     user.save(function(err, result) {
@@ -113,7 +110,7 @@ app.post('/auth/signup', function(req, res) {
         from: config.EMAIL_FROM,
         to: req.body.email,
         subject: 'Confirm Your Email Address',
-        html: 'Thank you for creating a chat account!   Please confirm your account by clicking on the link: <a href="http://' + config.APP_URL + '/#/verify-email?token=' + token + '">Click here to confirm your email.</a><p>Confirmation Code: ' + token + '</p><p>' + config.APP_URL + '/#/verify-email/?token=' + token + '</p>'
+        html: 'Thank you for creating a chat account!   Please confirm your account by clicking on the link: <a href="http://' + config.APP_URL + '/#/verify-email?token=' + token + '">Click here to confirm your email.</a><p>Confirmation Code: ' + token + '</p><p>http://' + config.APP_URL + '/#/verify-email?token=' + token + '</p>'
       };
       helpers.sendMail(data, function(err, result) {
         console.log('Sending confirmation email');
@@ -138,11 +135,7 @@ app.put('/auth/verifyemail', function(req, res) {
     return res.status(200).send({message: 'User is already verfied', token: createJWT(user)});
   }
   user.verified = true;
-  user.token = {
-    token: token,
-    used: true,
-    dateUsed: new Date()
-  };
+  user.token = token;
   user.save(function(err) {
     return res.status(200).send({message: 'Success', token: createJWT(user)});
   });
