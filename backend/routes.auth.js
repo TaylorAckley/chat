@@ -89,6 +89,7 @@ app.post('/auth/login', function(req, res) {
 });
 
 app.post('/auth/signup', function(req, res) {
+  var token = randtoken.generate(8);
   User.findOne({email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken' });
@@ -96,19 +97,23 @@ app.post('/auth/signup', function(req, res) {
     var user = new User({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      verified: false,
+      token: {
+        token: token,
+        used: false
+      }
     });
 
     user.save(function(err, result) {
       if (err) {
         return res.status(500).send({ message: err.message });
       }
-      var token = randtoken.generate(8);
       var data = {
-        from: 'Taylor@chat.com',
+        from: config.EMAIL_FROM,
         to: req.body.email,
         subject: 'Confirm Your Email Address',
-        html: 'Thank you for creating a chat account!   Please confirm your account by clicking on the link: <a href="' + config.APP_URL + '/#/verify-email/?token=' + token + '">Click here to confirm your email.</a><p>Confirmation Code: ' + token + '</p>'
+        html: 'Thank you for creating a chat account!   Please confirm your account by clicking on the link: <a href="http://' + config.APP_URL + '/#/verify-email?token=' + token + '">Click here to confirm your email.</a><p>Confirmation Code: ' + token + '</p><p>' + config.APP_URL + '/#/verify-email/?token=' + token + '</p>'
       };
       helpers.sendMail(data, function(err, result) {
         console.log('Sending confirmation email');
@@ -124,14 +129,24 @@ app.post('/auth/signup', function(req, res) {
   });
 });
 
-app.post('/auth/verifyEmail', function(req, res) {
-  console.log(req.query.token);
-  User.findAndModify({token: req.query.token}, {verified: true}, function(err, user) {
-    if (!user) {
-      return res.status(409).send({message: 'Token not found'});
-    }
-    res.send({message: 'Success', user: user});
+app.put('/auth/verifyemail', function(req, res) {
+  User.findOne({token: req.body.token}, function(err, user) {
+  if (!user) {
+    return res.status(400).send({message: 'Token not found'});
+  }
+  if(user.verified === true) {
+    return res.status(200).send({message: 'User is already verfied', token: createJWT(user)});
+  }
+  user.verified = true;
+  user.token = {
+    token: token,
+    used: true,
+    dateUsed: new Date()
+  };
+  user.save(function(err) {
+    return res.status(200).send({message: 'Success', token: createJWT(user)});
   });
+});
   });
 
 app.post('/auth/forgotPassword', function(req, res) {

@@ -20,7 +20,10 @@
             return $http.put('/api/me', profileData);
           },
           verifyEmail: function(token) {
-            return $http.post('/auth/verifyEmail', token);
+            tokenObj = {
+              token: token
+            };
+            return $http.put('/auth/verifyemail', tokenObj);
           }
         };
 

@@ -6,5 +6,6 @@
     MAILGUN_API: process.env.MAILGUN_API,
     MAILGUN_DOMAIN: process.env.MAILGUN_DOMAIN,
     TOKEN_SECRET: process.env.TOKEN_SECRET,
+    EMAIL_FROM: 'taylor@taylorackley.com'
   };
 module.exports = config;

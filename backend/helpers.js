@@ -14,7 +14,7 @@ module.exports =  {
 sendMail: function(data, callback) {
     var mailgun = new Mailgun({apiKey: MAILGUN_API, domain: MAILGUN_DOMAIN});
     mailgun.messages().send(data, function (err, body) {
-        if (err)throw err;
+        if (err){throw err;}
         else {
             var result = body;
             return callback(null, result);

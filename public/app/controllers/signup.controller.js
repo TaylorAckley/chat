@@ -12,8 +12,7 @@
       $scope.signup = function() {
         $auth.signup($scope.user)
           .then(function(response) {
-            //$auth.setToken(response);
-            $location.path('/verifyEmail');
+            $location.path('/verify-email');
             toastr.info('You have successfully created a new account.   Please check your email.');
           })
           .catch(function(response) {

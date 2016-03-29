@@ -1,1 +1,14 @@
-<h4>Please Wait...</h4>
+<div class="container">
+<div class="row">
+  <div class="col-md-8">
+    <p>{{tokenParam}}</p>
+<p>
+  Please check your email and click on the link or enter your token below.
+</p>
+<p><form class="form-inline"><input type="text" ng-enter="verifyEmail(inputToken)" ng-model="inputToken" id="token" class="form-control">
+  <button ng-click="verifyEmail(inputToken)" type="submit">Verify</button>
+</form>
+</p>
+</div>
+</div>
+</div>

@@ -8,9 +8,17 @@ var UserSchema = new Schema({
     email: {type: String, required: true, lowercase: true, trim: true, unique: true},
     password: { type: String, required: true},
     username: {type: String, required: true, lowercase: true, trim: true, unique: true},
-    token: String,
+    token: {
+      token: String,
+      used: Boolean,
+      dateUsed: Date
+    },
     verified: Boolean,
-    passwordReset: {type: String, required: false},
+    passwordReset:  {
+      token: String,
+      used: Boolean,
+      dateUsed: Date
+    },
     created_at: {type: Date, default: Date.now},
     updated_at: {type: Date, default: Date.now}
 });
